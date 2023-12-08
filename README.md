@@ -17,7 +17,7 @@ Esta carpeta contiene los archivos que se utilizaron para todo lo relacionado co
 * **Trabajo_Práctico_Aprendizaje_Automático.ipynb**: es el Trabajo Práctico como tal, esto contiene, en gran medida, todo lo responsable de que la puesta en producción exista y se pueda ejecutar.
 * **weatherAUS.csv**: es el dataset que vamos a utilizar para entrenar y evaluar nuestros modelos.
 
-### **Archivos sueltos**
+### **Archivos sueltos:**
 * **app.py**: contiene todo lo relacionado con la puesta en producción de los modelos de aprendizaje automático elegidos para cada problema.
 * **customs_transformers.py**: contiene las clases personalizadas que utiliza app.py para transformar los datos y luego entrenar los modelos.
 
