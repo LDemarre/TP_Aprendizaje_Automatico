@@ -1,0 +1,11 @@
+joblib
+scikit-learn
+pandas
+numpy
+keras==2.15.0
+tensorflow==2.15.0
+optuna
+imbalanced-learn==0.8.0
+scikit-learn>=0.20
+prettytable
+tabulate

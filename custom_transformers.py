@@ -1,7 +1,6 @@
 from sklearn.base import BaseEstimator, TransformerMixin, RegressorMixin, ClassifierMixin
 from sklearn.preprocessing import StandardScaler
 import pandas as pd
-import category_encoders as ce
 import numpy as np
 from keras.layers import Dense
 from keras.models import Sequential
@@ -88,16 +87,18 @@ class CustomStandardScaler(BaseEstimator, TransformerMixin):
         self.discarded_columns = discarded_columns
 
     def fit(self, X, y=None):
-        X = pd.DataFrame(X, columns=numerical_feature + categorical_feature)
-
         self.numeric_data = X.drop(self.discarded_columns, axis=1)
         self.scaler.fit(self.numeric_data)
         return self
 
     def transform(self, X):
-        X = pd.DataFrame(X, columns=numerical_feature + categorical_feature)
+        X2 = X.drop(self.discarded_columns, axis=1)
+        column_order = ['MinTemp', 'MaxTemp', 'Rainfall', 'Evaporation', 'Sunshine',
+                        'WindGustSpeed', 'WindSpeed9am', 'WindSpeed3pm', 'Humidity9am', 'Humidity3pm',
+                        'Pressure9am', 'Pressure3pm', 'Cloud9am', 'Cloud3pm', 'Temp9am', 'Temp3pm']
+        X2 = X2[column_order]
         
-        standarized_data = self.scaler.transform(X.drop(self.discarded_columns, axis=1))
+        standarized_data = self.scaler.transform(X2)
         standarized_df = pd.DataFrame(standarized_data, columns=self.numeric_data.columns)
 
         missing_columns = X[self.discarded_columns].reset_index(drop=True)
@@ -168,8 +169,6 @@ class RegressionNeuralNetworkTensorFlow(BaseEstimator, RegressorMixin):
         return model
 
     def fit(self, X, y, X_test=None, y_test=None):
-        start = time.time()
-        
         X = np.array(X)
         y = np.array(y)
 
@@ -225,9 +224,7 @@ class ClassificationNeuralNetworkTensorFlow(BaseEstimator, ClassifierMixin):
         model.compile(loss='binary_crossentropy', optimizer=optimizer)
         return model
 
-    def fit(self, X, y, X_test=None, y_test=None):
-        start = time.time()
-        
+    def fit(self, X, y, X_test=None, y_test=None): 
         X = np.array(X)
         y = np.array(y)
         

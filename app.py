@@ -4,13 +4,11 @@ import joblib
 import pandas as pd
 import numpy as np
 from custom_transformers import OutliersImputer, CustomEncoder, CustomStandardScaler, ModelTransformer, ClassificationNeuralNetworkTensorFlow, RegressionNeuralNetworkTensorFlow
-import keras.backend.tensorflow_backend as tb
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
 import warnings
 warnings.simplefilter('ignore')
-tb._SYMBOLIC_SCOPE.value = True
 
 # Extraemos los archivos (pipelines y csv)
 pipeline_cla = joblib.load('Archivos/pipeline_cla.joblib')
@@ -86,7 +84,7 @@ if st.button('Predecir'):
         # Mostramos la predicción en pantalla
         st.success(prediction)
     else:
-        prediction = pipeline_cla.predict(selected_values_df)[0][0]
+        prediction = pipeline_reg.predict(selected_values_df)[0][0]
 
         # Mostramos la predicción en pantalla
-        st.success(f'Cantidad de lluvia que va a caer: {prediction}mm')
+        st.success(f'Cantidad de lluvia que va a caer: {prediction:.2f}mm')
